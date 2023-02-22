@@ -1,0 +1,17 @@
+img {
+    max-width: 100%;
+    height: auto;
+ 
+    position: absolute;
+    top: 0;  
+   
+
+  }
+
+  .jumbotron-sm {
+    padding: 1rem;
+  }
+  
+  .jumbotron-sm h2 {
+    font-size: 2rem;
+  }

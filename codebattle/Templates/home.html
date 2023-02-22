@@ -1,0 +1,66 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script> -->
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% bootstrap_css %}
+   
+</head>
+<body>
+    {% block content %}
+    <header>
+        <div class="jumbotron  jumbotron-fluid jumbotron-sm">
+
+          <div class="row">
+            <div class="col-sm-4">
+              <img  class="img-fluid img-thumbnail" src="{% static 'images/log.png' %}" alt="Logo">
+            </div>
+            <div class="col-sm-8">
+              <h2 class="display-8 mb-3">
+                <marquee><span class="text-primary">The</span> <span class="text-danger">Developer's</span> <span class="text-success">Den</span></marquee>
+              </h2>
+
+            </div>
+          </div>
+          
+          
+        </div>
+      
+        
+      
+      </header>
+
+
+      <div>
+
+        {% for room in rooms %}
+
+        <div>
+          <span>@{{room.host.username}}</span>
+            <h4>{{room.id}}---<a href="/room/{{room.id}}">{{room.name}}</a></h4>
+    
+        </div>
+        {% endfor %}
+    
+      </div>
+
+
+ 
+      
+
+
+    {% endblock %}
+ 
+    
+    
+</body>
+</html>
