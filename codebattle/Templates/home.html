@@ -17,7 +17,9 @@
 </head>
 <body>
     {% block content %}
+   
     <header>
+    
         <div class="jumbotron  jumbotron-fluid jumbotron-sm">
 
           <div class="row">
@@ -39,27 +41,70 @@
       
       </header>
 
+      <a href="{% url 'create-room' %}">Create Space</a>
+   
+     
+
 
       <div>
 
         {% for room in rooms %}
 
-        <div>
+
+
+        <div class="border p-3">
+          <a href="{% url 'update-room' room.id %}">Update Space</a>
           <span>@{{room.host.username}}</span>
+          
             <h4>{{room.id}}---<a href="/room/{{room.id}}">{{room.name}}</a></h4>
+            <small>{{room.topic.name}}</small>
     
         </div>
         {% endfor %}
     
       </div>
 
+      <div>
+        <footer class="bg-dark text-light py-4">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>About Our Community</h5>
+                <p>Our developer community is dedicated to helping each other learn and grow. We provide resources, support, and collaboration opportunities for developers of all skill levels.</p>
+              </div>
+              <div class="col-md-3">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Resources</a></li>
+                  <li><a href="#">Events</a></li>
+                  <li><a href="#">Join Us</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <h5>Connect</h5>
+                <ul class="list-unstyled">
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">LinkedIn</a></li>
+                  <li><a href="#">GitHub</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <p class="text-center">&copy; 2023 Our Developer Community. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </footer>
+        
+      </div>
+
+      {% endblock %}
 
  
       
-
-
-    {% endblock %}
- 
     
     
 </body>
