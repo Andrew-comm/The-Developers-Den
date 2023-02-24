@@ -5,7 +5,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Developers Forum</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script> -->
@@ -17,6 +17,14 @@
 </head>
 <body>
     {% block content %}
+    <!-- <style>
+      .room-container{
+        display: grid;
+        grid-template-columns: 1fr,3fr;
+}
+    </style> -->
+
+   
    
     <header>
     
@@ -28,7 +36,7 @@
             </div>
             <div class="col-sm-8">
               <h2 class="display-8 mb-3">
-                <marquee><span class="text-primary">The</span> <span class="text-danger">Developer's</span> <span class="text-success">Den</span></marquee>
+                <span class="text-primary">The</span> <span class="text-danger">Developer's</span> <span class="text-success">Den</span>
               </h2>
 
             </div>
@@ -40,66 +48,48 @@
         
       
       </header>
+      <div class=" col-4 offset-1">
+        {% include 'navbar.html' %}
 
-      <a href="{% url 'create-room' %}">Create Space</a>
-   
-     
-
-
-      <div>
-
-        {% for room in rooms %}
-
-
-
-        <div class="border p-3">
-          <a href="{% url 'update-room' room.id %}">Update Space</a>
-          <a href="{% url 'delete-room' room.id %}">Delete Space</a>
-          <span>@{{room.host.username}}</span>
-          
-            <h4>{{room.id}}---<a href="/room/{{room.id}}">{{room.name}}</a></h4>
-            <small>{{room.topic.name}}</small>
-    
-        </div>
-        {% endfor %}
-    
       </div>
-
-      <div>
-        <footer class="bg-dark text-light py-4">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6">
-                <h5>About Our Community</h5>
-                <p>Our developer community is dedicated to helping each other learn and grow. We provide resources, support, and collaboration opportunities for developers of all skill levels.</p>
-              </div>
-              <div class="col-md-3">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Resources</a></li>
-                  <li><a href="#">Events</a></li>
-                  <li><a href="#">Join Us</a></li>
-                </ul>
-              </div>
-              <div class="col-md-3">
-                <h5>Connect</h5>
-                <ul class="list-unstyled">
-                  <li><a href="#">Twitter</a></li>
-                  <li><a href="#">Facebook</a></li>
-                  <li><a href="#">LinkedIn</a></li>
-                  <li><a href="#">GitHub</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-md-12">
-                <p class="text-center">&copy; 2023 Our Developer Community. All rights reserved.</p>
-              </div>
-            </div>
+      
+      <div class="row">
+    
+        <div class=" col-4 offset-1">
+          <strong><h3>Explore Favorite Content</strong></h3>
+          <div>
+            <a href="{% url 'home' %}">All</a>
           </div>
-        </footer>
-        
+       
+        {% for topic in topics %}
+        <div>
+          <a href="{% url 'home' %}?={{topic.name}}">{{topic.name}}</a>
+        </div>        
+
+        {% endfor %}
+        </div>
+
+        <div>
+          <h4>{{room_count}} spaces to join</h4>
+          <a href="{% url 'create-room' %}">Create Space</a>
+          <div>
+            {% for room in rooms %}  
+  
+          <div class="border p-3">
+            <a href="{% url 'update-room' room.id %}">Update Space</a>
+            <a href="{% url 'delete-room' room.id %}">Delete Space</a>
+            <span>@{{room.host.username}}</span>
+            
+              <h4><a href="/room/{{room.id}}">{{room.name}}</a></h4>
+              <small>{{room.topic.name}}</small>
+      
+          </div>
+          {% endfor %}
+      
+
+          </div>
+
+        </div>
       </div>
 
       {% endblock %}
