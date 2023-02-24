@@ -54,6 +54,7 @@
 
         <div class="border p-3">
           <a href="{% url 'update-room' room.id %}">Update Space</a>
+          <a href="{% url 'delete-room' room.id %}">Delete Space</a>
           <span>@{{room.host.username}}</span>
           
             <h4>{{room.id}}---<a href="/room/{{room.id}}">{{room.name}}</a></h4>
