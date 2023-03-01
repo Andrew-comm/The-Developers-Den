@@ -8,6 +8,10 @@ img {
 
   }
 
+  body {
+    background-color: purple; /* replace with your desired background color */
+  }
+
 
   .jumbotron-sm {
     padding: 1rem;
@@ -16,8 +20,10 @@ img {
   .jumbotron-sm h2 {
     font-size: 2rem;
   }
+
+
 .room-container{
   display: grid;
   grid-template-columns: 1fr,3fr;
 }
-  
+

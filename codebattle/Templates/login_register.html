@@ -1,0 +1,15 @@
+{% block content %}
+<form method="POST" action="">
+    {% csrf_token %}
+    <label>Username</label>
+    <input type="text" name="username" placeholder="Enter your name">
+
+    <label>Password</label>
+    <input type="text" name="password" placeholder="Enter a Password">
+
+    <input type="submit" value="Login">
+
+
+</form>
+
+{% endblock %}

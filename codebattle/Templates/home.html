@@ -1,4 +1,9 @@
 {% load static %}
+<style>
+  body {
+      background-image: url('{% static "images/background-image.jpg" %}');
+  }
+</style>
 {% load bootstrap4 %}
 <!DOCTYPE html>
 <html>
@@ -11,86 +16,100 @@
     <script src='main.js'></script> -->
     
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/styles.css' %}">
     {% bootstrap_css %}
    
 </head>
-<body>
-    {% block content %}
-    <!-- <style>
-      .room-container{
-        display: grid;
-        grid-template-columns: 1fr,3fr;
-}
-    </style> -->
-
+<!-- <style>
+body {
+    background-image: url("{% static '/images/background.jpg'%}");
    
+}
+
+</style> -->
+<body>
+    {% block content %}   
    
     <header>
-    
-        <div class="jumbotron  jumbotron-fluid jumbotron-sm">
-
-          <div class="row">
-            <div class="col-sm-4">
-              <img  class="img-fluid img-thumbnail" src="{% static 'images/log.png' %}" alt="Logo">
-            </div>
-            <div class="col-sm-8">
-              <h2 class="display-8 mb-3">
-                <span class="text-primary">The</span> <span class="text-danger">Developer's</span> <span class="text-success">Den</span>
-              </h2>
-
-            </div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo1.png' %}" width="30" height="30" alt="Logo">
+            <span class="ml-2">The Developer's Den</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
           </div>
-          
-          
         </div>
-      
-        
-      
-      </header>
+      </nav>
+    </header>
+    
+    
       <div class=" col-4 offset-1">
         {% include 'navbar.html' %}
 
       </div>
       
-      <div class="row">
-    
-        <div class=" col-4 offset-1">
-          <strong><h3>Explore Favorite Content</strong></h3>
-          <div>
-            <a href="{% url 'home' %}">All</a>
-          </div>
-       
-        {% for topic in topics %}
-        <div>
-          <a href="{% url 'home' %}?={{topic.name}}">{{topic.name}}</a>
-        </div>        
+      <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h4>Explore Favorite Content</h4>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="{% url 'home' %}">All</a>
+                    </li>
+                    {% for topic in topics %}
+                    <li class="list-group-item">
+                        <a href="{% url 'home' %}?={{topic.name}}">{{topic.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-        {% endfor %}
-        </div>
+            <div class="col-md-8">
+                <h4>{{room_count}} spaces to join</h4>
+                <a href="{% url 'create-room' %}" class="btn btn-success mb-3">Create Space</a>
+                {% for room in rooms %}
+                
 
-        <div>
-          <h4>{{room_count}} spaces to join</h4>
-          <a href="{% url 'create-room' %}">Create Space</a>
-          <div>
-            {% for room in rooms %}  
-  
-          <div class="border p-3">
-            <a href="{% url 'update-room' room.id %}">Update Space</a>
-            <a href="{% url 'delete-room' room.id %}">Delete Space</a>
-            <span>@{{room.host.username}}</span>
-            
-              <h4><a href="/room/{{room.id}}">{{room.name}}</a></h4>
-              <small>{{room.topic.name}}</small>
-      
-          </div>
-          {% endfor %}
-      
-
-          </div>
-
-        </div>
-      </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 class="card-title">
+                                    <a href="/room/{{room.id}}">{{room.name}}</a>
+                                </h5>
+                                <p class="card-text">
+                                    {{room.description}}
+                                </p>
+                                <small class="text-muted">
+                                    {{room.topic.name}}
+                                </small>
+                            </div>
+                            <div class="col-md-3 text-md-right">
+                                <a href="{% url 'update-room' room.id %}" class="btn btn-sm btn-primary mr-2">Update Space</a>
+                            </div>
+                            <div class="col-md-3 text-md-right mt-auto">
+                                <a href="{% url 'delete-room' room.id %}" class="btn btn-sm btn-danger">Delete Space</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
 
       {% endblock %}
 
