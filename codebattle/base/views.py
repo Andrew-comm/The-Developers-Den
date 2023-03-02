@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from .models import Room,Topic
@@ -10,6 +12,9 @@ from .forms import RoomForm
 
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     if request.method == 'POST':
         username  = request.POST.get('username')
         password = request.POST.get('password')
@@ -33,6 +38,11 @@ def login_page(request):
     context = {}
     return render(request, 'login_register.html', context)
 
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
 def home_page(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(
@@ -50,7 +60,7 @@ def room(request,pk):
     context={'room':room}
     return render(request,'room.html',context)
 
-
+@login_required(login_url='login')
 def makeRoom(request):
     form = RoomForm()
 
@@ -63,11 +73,14 @@ def makeRoom(request):
     return render(request,'room_form.html',context)
 
 
-
+@login_required(login_url='login')
 def modifyRoom(request,pk):
     room = Room.objects.get(id=pk)  
     form = RoomForm(instance=room)
     context={'form':form}
+
+    if request.user != room.host:
+        return HttpResponse("You have no capability to edit this space!!")
 
     if request.method == 'POST':
         form = RoomForm(request.POST,instance=room)
@@ -76,8 +89,13 @@ def modifyRoom(request,pk):
 
     return render(request,'room_form.html',context)
 
+@login_required(login_url='login')
 def eliminateRoom(request,pk):
     room = Room.objects.get(id=pk)
+
+    if request.user != room.host:
+        return HttpResponse("You have no permission to delete this space!!")
+
 
     if request.method == 'POST':
         room.delete()
