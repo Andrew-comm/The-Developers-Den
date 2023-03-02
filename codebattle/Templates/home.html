@@ -85,12 +85,16 @@ body {
                 <a href="{% url 'create-room' %}" class="btn btn-success mb-3">Create Space</a>
                 {% for room in rooms %}
                 
+                {% if request.user == room.host %}
+               
+                
 
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-9">
                                 <h5 class="card-title">
+                                    Space hosted by:@{{room.host}}
                                     <a href="/room/{{room.id}}">{{room.name}}</a>
                                 </h5>
                                 <p class="card-text">
@@ -109,6 +113,9 @@ body {
                         </div>
                     </div>
                 </div>
+                {% endif %}
+
+              
             {% endfor %}
 
       {% endblock %}

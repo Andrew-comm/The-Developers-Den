@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-   path('login', views.login_page, name="login"), 
+   path('login', views.login_page, name="login"),
+    path('logout', views.logoutUser, name="logout"), 
    path('', views.home_page, name="home"),
    path('room/<int:pk>/', views.room, name="room"),
    path('create-room/', views.makeRoom, name="create-room"),
