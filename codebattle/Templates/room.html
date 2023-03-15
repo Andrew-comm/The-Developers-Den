@@ -9,16 +9,26 @@
 
 <div>
     <h3>Chat</h3>
-    {% if messages %}
+    
         {% for message in room_messages %}
         <div>
+            <p>message by @{{message.user}}</p>
             <p>{{message.body}}</p>
-            <small>@{{ message.user.username }} {{ message.created|timesince }} ago</small>
+            <small>{{ message.created|timesince }} ago</small>
         </div>
         {% endfor %}
-    {% else %}
-        <p>No messages yet.</p>
-    {% endif %}
+   
 </div>
+
+{% if request.user.is_authenticated %}
+<div>
+    <form method="POST" action="">
+        {%csrf_token%}
+
+        <input type="text" name="body" placeholder="Leave your message here..">
+
+    </form>
+</div>
+{% endif%}
 
 {% endblock %}
