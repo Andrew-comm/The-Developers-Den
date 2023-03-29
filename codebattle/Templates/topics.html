@@ -1,0 +1,26 @@
+<style>
+  .badge{
+    font-size: 20px;
+  }
+</style>
+
+<h4>Explore Favorite Content</h4>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                      <a href="{% url 'home' %}" class="d-flex justify-content-between align-items-center text-decoration-none">
+                        <span>All</span>
+                        <span class="badge bg-secondary ms-2">{{topics.count}}</span>
+                      </a>
+                    </li>
+                    {% for topic in topics %}
+                    <li class="list-group-item">
+                      <a href="{% url 'home' %}?={{topic.name}}" class="d-flex justify-content-between align-items-center text-decoration-none">
+                        <span>{{topic.name}}</span>
+                        <span class="badge bg-secondary ms-2">{{topic.room_set.all.count}}</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+
+                <div>

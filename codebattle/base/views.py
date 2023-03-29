@@ -65,19 +65,38 @@ def registerUser(request):
 
 def home_page(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
+    
+    # Get all rooms that match the search query
     rooms = Room.objects.filter(
-        Q(topic__name__icontains=q)|
-        Q(name__icontains=q)|
-        Q(description__icontains=q)) 
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    )
+    
+    # Get all topics for filtering
     topics = Topic.objects.all()
+    
+    # Get the total count of rooms that match the search query
     room_count = rooms.count()
-    context = {'rooms':rooms,'topics':topics,'room_count':room_count}    
-    return render(request, "home.html",context)
+    
+    # Get all messages of rooms that match the search query
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
 
+    # Create a dictionary to hold the context data
+    context = {
+        'rooms': rooms,
+        'topics': topics,
+        'room_count': room_count,
+        'room_messages': room_messages,
+        'q': q,
+    }
+
+    # Render the home.html template with the context data
+    return render(request, 'home.html', context)
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all().order_by('-created')
+    room_messages = room.message_set.all()
     participants = room.participants.all()
 
     if request.method == 'POST':
@@ -95,24 +114,42 @@ def room(request,pk):
     context={'room':room,'room_messages':room_messages, 'participants':participants}
     return render(request,'room.html',context)
 
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    room_messages = user.message_set.all()
+    topics = Topic.objects.all
+    context = {'user':user, 'rooms':rooms, 'room_messages':room_messages, 'topics':topics}
+    return render(request,'profile.html',context)
+
 @login_required(login_url='login')
 def makeRoom(request):
     form = RoomForm()
+    topics = Topic.objects.all()
 
     if request.method == 'POST':
-        form = RoomForm(request.POST)
-        if form.is_valid:
-            form.save()      
+        topic_name = request.POST.get('topic')
+        topic,created = Topic.objects.get_or_create(name='topic_name')
+
+        Room.objects.create(
+            host = request.user,
+            topic = topic,
+            name = request.POST.get('name'),
+            description = request.POST.get('description'),
+        )
+       
+        return redirect('home')      
     
-    context = {'form': form}   
-    return render(request,'room_form.html',context)
+    context = {'form': form, 'topics':topics}   
+    return render(request,'room_form.html',context, )
 
 
 @login_required(login_url='login')
 def modifyRoom(request,pk):
     room = Room.objects.get(id=pk)  
     form = RoomForm(instance=room)
-    context={'form':form}
+    topics = Topic.objects.all()
+    context={'form':form, 'topics':topics, 'room':room}
 
     if request.user != room.host:
         return HttpResponse("You have no capability to edit this space!!")
@@ -153,4 +190,16 @@ def deleteMessage(request,pk):
 
     return render(request, "delete.html", {'obj':message})
 
+@login_required(login_url='login')
+def aboutPage(request):
+    context={}
+    return render(request,'about.html', context)
+
+
+@login_required(login_url='login')
+def updateProfile(request):
+    return render(request, 'update-profile.html')
+
+def dashboardPage(request):
+    return render(request, 'dashboard.html')
 

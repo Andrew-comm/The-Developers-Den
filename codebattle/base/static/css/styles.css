@@ -1,30 +1,5 @@
-img {
-    max-width: 100%;
-    height: auto;
- 
-    position: absolute;
-    top: 0;  
-   
-
+body {
+    color: blueviolet;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
-
-  body {
-    background-color: purple; /* replace with your desired background color */
-  }
-
-
-  .jumbotron-sm {
-    padding: 1rem;
-  }
-  
-  .jumbotron-sm h2 {
-    font-size: 2rem;
-  }
-
-
-
-.room-container{
-  display: grid;
-  grid-template-columns: 1fr,3fr;
-}
-

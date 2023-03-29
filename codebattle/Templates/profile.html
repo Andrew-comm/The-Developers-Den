@@ -1,0 +1,40 @@
+<html>
+{% load static %}
+{% load bootstrap4 %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% bootstrap_css %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        {% include 'navbar.html' %} 
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+     
+      {% include 'activities.html' %}
+    </div>
+    <div class="col-md-4">
+         <h3>User Profile</h3>
+    </div>
+    <div class="col-md-5">
+        {% include 'topics.html' %}
+    </div>
+
+
+</div>
+   
+  
+
+    
+    {% endblock content %}
+
+   
+
+
+
+</html>

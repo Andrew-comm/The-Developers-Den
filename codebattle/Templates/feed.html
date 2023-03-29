@@ -1,0 +1,49 @@
+{% include 'navbar.html' %}
+
+{% block content %}
+
+
+
+{% for room in rooms %}
+                
+                {% if request.user == room.host %}
+               
+                
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                       
+                            <div class="col-md-9">
+                              
+                                <h5 class="card-title">
+                                    Space hosted by:<a href="{% url 'profile' room.host.id %}">@{{room.host.username}}</a>
+                                    <a href="{% url 'room' room.id%}">{{room.name}}</a>
+                                </h5>
+                                <p class="card-text">
+                                    {{room.description}}
+                                </p>
+                                <small class="text-muted">
+                                    {{room.topic.name}}
+                                </small>
+                            </div>
+                            
+                            <div class="col-md-3 text-md-right">
+                                <a href="{% url 'update-room' room.id %}" class="btn btn-sm btn-primary mr-2">Update Space</a>
+                            </div>
+                            <div class="col-md-3 text-md-right mt-auto">
+                                <a href="{% url 'delete-room' room.id %}" class="btn btn-sm btn-danger">Delete Space</a>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+                {% endif %}
+            
+
+
+              
+            {% endfor %}
+
+{% endblock %}

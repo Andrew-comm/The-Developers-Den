@@ -1,6 +1,7 @@
 {% load static %}
-
 {% load bootstrap4 %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,25 +13,78 @@
     <script src='main.js'></script> -->
     
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main.css' %}">
+    <script src="https://kit.fontawesome.com/79a1a846e3.js" crossorigin="anonymous"></script>    {% bootstrap_css %}
    
 </head>
-<!-- <style>
-body {
-    background-image: url("{% static '/images/background.jpg'%}");
-   
-}
+<style>
+  .container-2{
+    height: 220px;
+  }
 
-</style> -->
-<body>
+  .card {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .card-title {
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    color: #4a4a4a;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+  }
+ 
+  small {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 500;
+    color: #999;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  small .participant-count{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+ 
+</style>
+
+
+
+
+
+ 
+
+
+
+
     {% block content %}   
    
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
           <a class="navbar-brand" href="#">
-            <img src="{% static 'images/logo1.png' %}" width="30" height="30" alt="Logo">
+            <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" width="30" height="30" alt="Logo"></a>
             <span class="ml-2">The Developer's Den</span>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,41 +96,54 @@ body {
                 <a class="nav-link" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="{% url 'about' %}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="{% url 'dashboard' %}">Contact</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Services</a>
+              </li>
+              
             </ul>
           </div>
         </div>
       </nav>
     </header>
     
-    
-      <div class=" col-4 offset-1">
-        {% include 'navbar.html' %}
-
-      </div>
+    <div class="row container-2">
+      <div class=" col-11 offset-1">
+        {% include 'navbar.html' %}   
+      
       
       <div class="container my-5">
         <div class="row">
             <div class="col-md-4 mb-4">
-                <h4>Explore Favorite Content</h4>
-                <hr>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="{% url 'home' %}">All</a>
-                    </li>
-                    {% for topic in topics %}
-                    <li class="list-group-item">
-                        <a href="{% url 'home' %}?={{topic.name}}">{{topic.name}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                {% include 'topics.html' %}
+                <br>
 
+                {% include 'activities.html' %}
+
+              
+                </div>
+                
+               
+                  
+
+            </div>
+            
+
+           
             <div class="col-md-8">
+              <div class="card">
+                <div class="card-title">
+                  <h3>Programmers' Paradise</h3>
+
+                </div>
+               
+              </div>
+              <br>
+              
                 <h4>{{room_count}} spaces to join</h4>
                 <a href="{% url 'create-room' %}" class="btn btn-success mb-3">Create Space</a>
                 {% for room in rooms %}
@@ -88,10 +155,12 @@ body {
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
+                       
                             <div class="col-md-9">
+                              
                                 <h5 class="card-title">
-                                    Space hosted by:@{{room.host}}
-                                    <a href="/room/{{room.id}}">{{room.name}}</a>
+                                    Space hosted by:<a href="{% url 'profile' room.host.id %}">@{{room.host.username}}</a>
+                                    <a href="{% url 'room' room.id%}">{{room.name}}</a>
                                 </h5>
                                 <p class="card-text">
                                     {{room.description}}
@@ -99,20 +168,27 @@ body {
                                 <small class="text-muted">
                                     {{room.topic.name}}
                                 </small>
+                                <small class="participant-count">{{room.participants.all.count}} <i class="fa-solid fa-user-group"></i>Joined this space</small>
                             </div>
+                            
                             <div class="col-md-3 text-md-right">
                                 <a href="{% url 'update-room' room.id %}" class="btn btn-sm btn-primary mr-2">Update Space</a>
                             </div>
                             <div class="col-md-3 text-md-right mt-auto">
                                 <a href="{% url 'delete-room' room.id %}" class="btn btn-sm btn-danger">Delete Space</a>
                             </div>
+                            
                         </div>
+                        
                     </div>
                 </div>
                 {% endif %}
+            
+
 
               
             {% endfor %}
+            
 
       {% endblock %}
 

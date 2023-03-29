@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="mb-0">Recent Activities</h3>
+  </div>
+
+  <div class="card-body">
+    {% for message in room_messages %}
+    <div class="border rounded p-3 mb-3">
+      <div class="d-flex justify-content-between">
+        <small class="text-muted">
+          <a href="{% url 'profile' message.user.id %}" class="text-decoration-none">@{{message.user}}</a> {{message.created|timesince}} ago
+        </small>
+        {% if request.user == message.user %}
+        <a href="{% url 'delete-message' message.id %}" class="text-danger text-decoration-none">Delete message</a>
+        {% endif %}
+      </div>
+      <p class="mt-1 mb-1">{{message.body}}</p>
+      <small class="text-muted">replied to {{message.room}}</small>
+    </div>
+    {% endfor %}
+  </div>
+</div>

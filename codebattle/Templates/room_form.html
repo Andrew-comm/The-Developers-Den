@@ -1,18 +1,230 @@
-
-
-
 {% block content %}
+{% include 'navbar.html' %}
+<style>
+  /* Style for create room page */
 
-<div>
-    <form method="post" action="">
-        {% csrf_token %}
-        
-        {{form.as_p}}
+.layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
 
-        <input type="submit" value="Submit">
+.layout__box {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.layout__boxHeader {
+  background-color: #3F3D56;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layout__boxHeader a {
+  color: #fff;
+  text-decoration: none;
+}
+.layout__boxTitle a svg {
+  width: 24px;
+  height: 24px;
+}
+
+.layout__boxHeader h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.layout__boxTitle {
+  display: flex;
+  align-items: center;
+}
+
+.layout__body {
+  padding: 2rem;
+}
+
+.form__group {
+  margin-bottom: 1.5rem;
+}
+
+.form__group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;    
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.form__group input[type="text"],
+.form__group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: 2px solid #ddd;
+  transition: border-color 0.5s;
+}
+
+.form__group input[type="text"]:focus,
+.form__group textarea:focus {
+  outline: none;
+  border: 1px solid #3F3D56;
+}
+
+.form__group select {
+  width: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form__action {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form__action button[type="submit"] {
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #00529f;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.5s;
+}
+.form__action button[type="submit"]:hover {
+  background-color: burlywood;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
 
-    </form>
-</div>
+.btn--dark {
+  background-color: #3F3D56;
+  color: #fff;
+  border: none;
+}
 
-{% endblock %}
+.btn--main {
+  background-color: #5E72E4;
+  color: #fff;
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+body {
+  background-color: #f7c289; 
+}
+.form__group .space-name {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.form__group .space-name:focus {
+  outline: none;
+  border-color: #00c2ff;
+}
+
+/* Responsive layout */
+@media only screen and (max-width: 600px) {
+  .layout__box {
+    width: 90%;
+    max-width: none;
+  }
+}
+
+</style>
+<main class="create-room layout">
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <a href="{% url 'home' %}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>arrow-left</title>
+                <path
+                  d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                </path>
+              </svg>
+            </a>
+            <h3>Create Study Room</h3>
+          </div>
+        </div>
+        <div class="layout__body">
+          <form class="form" action="" method="POST">
+            {% csrf_token %}
+
+            
+            <div class="form__group">
+              <label for="room_topic">Topic </label>
+              <input required type="text" value="{{room.topic.name}}" name="topic" id="room_topic" list="topic-list" />
+              <datalist id="topic-list">
+                <select id="room_topic">
+                  <option value="">Select your topic</option>
+                  {% for topic in topics%}
+                  <option value="{{topic.name}}">{{topic.name}}</option>
+                  {% endfor %}
+                  
+                </select>
+              </datalist>
+           
+            </div>
+
+            <div class="form_group space-name">
+              <label for="room_name">Space Name</label>
+              {{form.name}}
+            </div>
+
+            <div class="form_group">
+              <label for="room_description">Space Description</label>
+              {{form.description}}
+            </div>          
+
+            
+            <div class="form__action">
+              <a class="btn btn--dark" href="{%url 'home'%}">Cancel</a>
+              <button class="btn btn--main" type="submit">Create Space</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  {% endblock %}
+
+
+
+
+

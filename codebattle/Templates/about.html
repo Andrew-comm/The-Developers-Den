@@ -1,0 +1,274 @@
+{% load static %}
+
+<script src="https://kit.fontawesome.com/79a1a846e3.js" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<style>
+    .testimonials{
+    padding-top: 100px;
+}
+.testimonials .col-3{
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+.testimonials .col-3 img{
+    width: 50px;
+    margin-top: 20px;
+    border-radius: 50%;
+}
+.testimonials .col-3:hover{
+    transform: translateY(-10px);
+    background: palevioletred;
+}
+.fa.fa-quote-left{
+    font-size: 34px;
+    color: #ff523b;
+
+}
+.col-3 p{
+    font-size: 12px;
+    margin: 12px 0;
+    color: #777;
+}
+
+.testimonials .col-3{
+    font-weight: 600;
+    color: #555;
+    font-size: 16px;
+}
+    .small-container{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.c-item{
+    height: 400px;
+    width: 100%;
+
+}
+.c-img{
+    height: 100%;
+    border: 1px solid black;
+    object-fit: cover;
+
+}
+.carousel-caption{
+    text-decoration: aqua;
+    color: blueviolet;
+}
+.testimonials .col-3{
+  font-weight: 600;
+  color: #555;
+  font-size: 16px;
+}
+.card-body{
+  height: auto;
+  transform: heigth 0.5s;
+
+}
+
+.card-title:hover {
+  color: #ff6f00; 
+  cursor: pointer; 
+
+}
+.card-body:hover {
+  background: pink;
+  color: #ff6f00; 
+  cursor: pointer; 
+  transform: translateY(-15px);
+}
+.row .display-container{
+  margin-top: 40px;
+}
+.container{
+  margin-top: 30px;
+}
+h1{
+  font-size: 40px;
+  color: #ff523b;
+  font-weight: 600;
+  text-align: center;
+}
+h2{
+  font-size: 24px;
+  color: #ff6f00;
+  font-weight: 300;
+  text-align: center;
+}
+ body{
+  font-size: 16px;
+  background: #555;
+  color: #777;
+}
+.text{
+  font-size: 14px;
+  background-color: antiquewhite;
+}
+    </style>
+
+<div class="testimonials">
+  <h1>Welcome to our developers forum!</h1>
+    <div class="small-container">
+        <div class="row">
+            <div class="card">
+                <body>
+                  <h2>About Us</h2>
+                    <div class="text"><p>We are a community of passionate developers who come together to discuss and share our knowledge and experiences in the tech industry.</p>
+                      <p>Our goal is to create a space where developers of all levels can come together to learn, grow, and connect with like-minded individuals. Whether you are a seasoned pro or just starting out, there is a place for you here.</p>
+                      <p>Our forum covers a wide range of topics, including programming languages, web development, software engineering, machine learning, AI, and more. We encourage our members to share their expertise and provide helpful feedback to others.</p>
+                      <p>As developers, we understand the importance of staying up-to-date with the latest trends and technologies. That's why we are committed to providing our members with the most relevant and cutting-edge information available.</p>
+                      <p>We believe that collaboration and community are essential to success in the tech industry. By joining our forum, you will have the opportunity to connect with other developers, share your ideas, and collaborate on projects.</p>
+                      <p>Thank you for being a part of our community. We look forward to learning and growing with you!</p>
+                 
+
+                    </div>
+                  </body>
+                    
+            </div>
+
+            <br>
+            
+
+            
+            <div class=" row display-container">
+                <div id="my-carousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                        <div class="carousel-indicators">
+                          <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                          <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                          <button type="button" data-bs-target="#my-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                      
+                    <div class="carousel-inner">
+                      <div class="carousel-item active c-item">
+                        <img src="{% static 'images/pic1.avif' %}" class="d-block w-100 c-img" alt="image1">
+                        <div class="carousel-caption top-0">
+                            <h1>Amazing palace</h1>
+                            <p>Pretty look of my future cottage</p>
+                          </div>
+                      </div>
+                      <div class="carousel-item c-item">
+                        <img src="{% static 'images/pic2.avif'%}" class="d-block w-100 c-img" alt="image2">
+                        <div class="carousel-caption top-0 ">
+                            <h1>Ambious developer setup</h1>
+                            <p>working site an the gorgeous look of ambitious developer</p>
+                          </div>
+                       
+                    
+                      </div>
+                      <div class="carousel-item c-item">
+                        <img src="{% static 'images/pic3.avif' %}" class="d-block w-100 c-img" alt="image3">
+                        <div class="carousel-caption top-0 ">
+                            <h1>Look of my code background</h1>
+                            <p>The superb art of coding with experience</p>
+                          </div>
+                      
+                    
+                      </div>
+            
+                      <button class="carousel-control-prev" type="button" data-bs-target="#my-carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                    
+                  </div>
+            
+                  <button class="carousel-control-next" type="button" data-bs-target="#my-carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+            
+            
+            
+                    </div>
+                    
+                
+                
+            </div>
+            <br>
+            <br>
+
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h3 class="card-title">Testimonial 1</h3>
+                        <i class="fa fa-quote-left"></i>
+                        <p class="card-text">I was struggling with a coding challenge for weeks, and then I stumbled upon this forum. Within hours, I received helpful tips and advice from other members, and I was finally able to solve the problem.!</p>
+                        <div class="rating">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star-o"></i>
+                        </div>
+                        <img src="{% static 'images/user-1.png' %}" class="rounded-circle img-fluid" alt="User 1">
+                        <h4 class="card-title">Andreas Potter</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h3 class="card-title">Testimonial 2</h3>
+                        <i class="fa fa-quote-left"></i>
+                        <p class="card-text">As a beginner developer,  this community has been so welcoming and supportive, and I've learned more than I ever thought possible. Thank you for creating such a fantastic resource!</p>
+                        <div class="rating">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star-o"></i>
+                        </div>
+                        <img src="{% static 'images/user-2.png' %}" class="rounded-circle img-fluid" alt="User 2">
+                        <h4 class="card-title">Will Smith</h4>
+                      </div>
+                    </div>
+                    
+                 
+              
+                    </div>
+        
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Testimonial 3</h3>
+                                <i class="fa fa-quote-left" ></i>
+                                <p class="card-text">This developers forum is simply amazing! I've been able to connect with other developers from around the world, learn new skills and techniques, and get help on some tough coding challenges. </p>
+                
+                                <div class="rating">
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star" ></i>
+                                    <i class="fa fa-star-o" ></i>           
+                
+                                </div>
+                                <img src="{% static 'images/user-3.png' %}" class="rounded-circle img-fluid" alt="User 2">
+                                <h4 class="card-title">Milly Raukter</h4>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+    
+                </div>
+
+               
+
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+</div>

@@ -1,22 +1,157 @@
+{% load static %}
 
-{% if request.user.is_authenticated %}
-Welcome {{request.user}}
-<a href="{% url 'logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
+<style>
+    /* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
 
-{% endif %}
+.logo img {
+  height: 50px;
+}
 
-<form method="get" action="{% url 'home' %}">
-    <input type="text" name="q" placeholder="search space....">
+.user {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  position: relative; /* added */
+}
 
-</form>
+.avatar {
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer; /* added */
+}
+
+.user a {
+  margin-left: 10px;
+}
+
+/* Dropdown menu styles */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #f5f5f5;
+  min-width: 120px;
+  z-index: 1;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* add a box shadow */
+}
+
+
+.dropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
+}
+
+.user:hover .dropdown {
+  display: block;
+}
+.user::after {
+    content: "\25BC"; /* Unicode for a down arrow */
+    margin-left: 5px;
+    font-size: 10px;
+  }
+
+
+/* Search bar styles */
+.search {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input[type="text"] {
+  padding: 10px ;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+}
+
+.search button {
+  padding: 10px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  transform: background 0.5s;
+}
+
+.search button:hover {
+  background: palevioletred;
+}
+
+/* Messages styles */
+.messages {
+  margin-top: 20px;
+}
+
+.messages ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.messages li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+}
+
+</style>
+
+<div class="navbar">
+  <div class="logo">
+    
+    <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" alt="Logo"></a>
+    <h3>Welcome Back!!</h3>
+  </div>
+  <div class="search">
+    <form method="get" action="{% url 'home' %}">
+      <input type="text" name="q" placeholder="Search space...">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  
+  <div class="user">
+    {% if request.user.is_authenticated %}
+    <img src="{% static 'images/avatar.jpeg' %}" class="avatar">
+     {{ request.user }}
+    <div class="dropdown">
+      <a href="{% url 'update-profile' %}">Settings</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+ 
+</div>
+
 
 
 {% if messages %}
-<ul class="messages">
+<div class="messages">
+  <ul>
     {% for message in messages %}
     <li>{{ message }}</li>
     {% endfor %}
-</ul>
+  </ul>
+</div>
 {% endif %}
