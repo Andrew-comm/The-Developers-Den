@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from .models import Room,Topic,Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 
 
 def login_page(request):
@@ -198,7 +198,15 @@ def aboutPage(request):
 
 @login_required(login_url='login')
 def updateProfile(request):
-    return render(request, 'update-profile.html')
+    user = request.user
+    form = UserForm(instance=user)
+    context = {'form':form}
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid:
+            form.save()
+            return redirect('profile',user.id)
+    return render(request, 'update-profile.html',context)
 
 def dashboardPage(request):
     return render(request, 'dashboard.html')

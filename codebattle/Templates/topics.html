@@ -1,7 +1,32 @@
+
+<script src="https://kit.fontawesome.com/79a1a846e3.js" crossorigin="anonymous"></script>
 <style>
   .badge{
     font-size: 20px;
   }
+  .more-topics-link {
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.more-topics-heading {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.more-topics-icon {
+  margin-left: 25px;
+  color: pink;
+  font-size: 26px;
+}
+
+
 </style>
 
 <h4>Explore Favorite Content</h4>
@@ -21,6 +46,14 @@
                       </a>
                     </li>
                     {% endfor %}
+                    <a href="#" class="more-topics-link">
+                      <h4 class="more-topics-heading">
+                        More Topics 
+                        <i class="fa-solid fa-angle-down more-topics-icon"></i>
+                      </h4>
+                    </a>
+                    
+                    
                   </ul>
 
                 <div>

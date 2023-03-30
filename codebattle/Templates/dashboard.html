@@ -1,3 +1,4 @@
+
 {% load bootstrap4 %}
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -6,7 +7,35 @@
      {% bootstrap_css %}
    
 
-{% block content %}
+  <style>
+    
+  /* First card */
+  .card:nth-child(1) {
+    background: radial-gradient(circle, #F7B1AB, #FF7F50);
+  }
+
+  /* Second card */
+  .card:nth-child(2) {
+    background: radial-gradient(circle, #C3B1E1, #6D7B8D);
+  }
+
+  /* Third card */
+  .card:nth-child(3) {
+    background: radial-gradient(circle, #A5FFD6, #9D5A8F);
+  }
+  h1{
+    font-size: 30px;
+    font-weight: 500;
+    padding: 10px 30px;
+    background: #6D7B8D;
+    color: #000;
+    text-align: center;
+  }
+
+</style>
+
+{% include 'navbar.html' %}
+
   <div class="container mt-3">
     <h1 class="mb-3">Dashboard</h1>
 
@@ -57,5 +86,53 @@
         </ul>
       </div>
     </div>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <h5 class="card-title">Data Visualization</h5>
+        <p class="card-text">Here's a chart showing the number of messages you've posted over time:</p>
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
   </div>
-{% endblock %}
+
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="myChart"></canvas>
+
+  <script>
+    // Get the data for the chart
+    let labels = [];
+    let data = [];
+
+    
+
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Number of Messages',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  </script>
