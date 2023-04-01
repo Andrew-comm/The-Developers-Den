@@ -1,59 +1,246 @@
 {% load static %}
-{% include "home.html" %}
+{% load bootstrap4 %}
 
-{% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">{{room.name}}</h2>
-                    <p class="card-text">{{room.description}}</p>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Chat</h3>
+<!-- {% block content %}
+<!-- Include Bootstrap CSS file -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-                    {% for message in room_messages %}
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <p class="mb-0">{{message.user}}</p>
-                            {% if request.user == message.user %}
-                            <a href="{% url 'delete-message' message.id %}" class="ml-auto">Delete message</a>
-                            {% endif %}
-                        </div>
-                        <p class="card-text">{{message.body}}</p>
-                        <small class="text-muted">{{ message.created|timesince }} ago</small>
-                    </div>
-                    {% endfor %}
+<!-- Include jQuery and Bootstrap JavaScript files -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-                    {% if request.user.is_authenticated %}
-                    <form method="POST" action="">
-                        {%csrf_token%}
-                        <div class="form-group">
-                            <input type="text" name="body" class="form-control" placeholder="Leave your message here..">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                    </form>
-                    {% endif%}
-                </div>
-            </div>
+
+<style>
+    .row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.chat-message {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  margin-bottom: 10px;
+}
+
+.chat-message p {
+  margin-bottom: 5px;
+}
+
+.chat-message small {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.participants img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.participants p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.participants a {
+  color: #333;
+}
+
+span.ml-2 {
+  margin-right: 25px;
+  font-size: 1.5rem;
+  color: #FF69B4;
+}
+.nav-link{
+  font-size: 18px;
+  color: #ff523b;
+}
+span.ml-2:hover{
+  color: #000;
+}
+
+body {
+    background: radial-gradient(circle at center, #ffffff, #c1e1f9);
+  }
+
+  .card-1 {
+    background: radial-gradient(ellipse at center, #ff9900 0%, #ff6600 100%);
+}
+
+.card-2 {
+    background: radial-gradient(ellipse at center, #66ccff 0%, #3399ff 100%);
+}
+
+.card-3 {
+    background: radial-gradient(ellipse at center, #cc66ff 0%, #9933ff 100%);
+}
+.card {
+    margin: 10px;
+  }
+
+  /* style the chat input field and button */
+  .chat-form {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .chat-form form {
+    display: flex;
+    align-items: center;
+  }
+
+  .chat-form form .form-group {
+    margin-right: 10px;
+  }
+
+  .chat-form form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  .chat-form form button[type="submit"] {
+  background-color: #007bff;
+  border: none; 
+  border-radius: 4px; 
+  color: #fff; 
+  cursor: pointer; 
+  font-size: 16px; 
+  padding: 10px 20px; 
+  transition: background-color 0.3s ease; 
+}
+
+.chat-form form button[type="submit"]:hover {
+  background-color: #0069d9; 
+}
+
+.nav-link{
+ 
+    font-size: 24px;
+    
+
+}
+.nav-link:hover{
+    color: #000;
+
+}
+
+
+
+
+
+
+    
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" width="70" height="60" alt="Logo"></a>
+          <span class="ml-2">The Developer's Den</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" style="color:#ff523b ;" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color:#ff523b ;" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color:#ff523b ;" href="{% url 'dashboard' %}">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color:#ff523b ;" href="#">Services</a>
+            </li>
+            
+          </ul>
         </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Participants<span>({{participants.count}} Joined)</span></h4>
-
-                    {% for participant in participants %}
-                    <img src="{% static 'images/avatar.jpeg' %}">
-                   <a href="{% url 'profile' user.id %}"><p class="card-text">@{{participant.username}}</p></a>
-                    {% endfor %}
-                </div>
-            </div>
+      </div>
+    </nav>
+  </header>
+ 
+  <div class="row">
+    <div class="col-4 offset-1">
+      <div class="card h-100 card-1">
+        <div class="card-body">
+          <h2 class="card-title">{{room.name}}</h2>
+          <p class="card-text">{{room.description}}</p>
         </div>
+      </div>
     </div>
-</div>
-{% endblock %}
+    <div class="col-3">
+      <div class="card h-100 card-2">
+        <div class="card-body">
+          <h3 class="card-title">Chat</h3>
+          {% for message in room_messages %}
+          <div class="mb-3">
+            <div class="d-flex align-items-center mb-2">
+              <p class="mb-0">{{message.user}}</p>
+              {% if request.user == message.user %}
+              <a href="{% url 'delete-message' message.id %}" class="ml-auto">Delete message</a>
+              {% endif %}
+            </div>
+            <p class="card-text">{{message.body}}</p>
+            <small class="text-muted">{{ message.created|timesince }} ago</small>
+          </div>
+          {% endfor %}
+          <div>
+            {% if request.user.is_authenticated %}
+            <form method="POST" action="">
+              {%csrf_token%}
+              <div class="form-group">
+                <textarea name="body" class="form-control" placeholder="make contributions here"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+            {% endif%}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card h-100 card-3">
+        <div class="card-body">
+          <h4 class="card-title">Participants<span>({{participants.count}} Joined)</span></h4>
+          {% for participant in participants %}
+          <div class="d-flex align-items-center mb-2">
+            <img src="{% static 'images/avatar.jpeg' %}" class="mr-3">
+            <a href="{% url 'profile' user.id %}" class="card-link">@{{participant.username}}</a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}    
+ 

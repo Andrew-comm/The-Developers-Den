@@ -2,17 +2,16 @@
 
 <style>
     /* Navbar styles */
+  
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #f5f5f5;
+  background-color:#ddd;
 }
 
-.logo img {
-  height: 50px;
-}
+
 
 .user {
   display: flex;
@@ -45,7 +44,7 @@
 
 
 .dropdown a {
-  color: black;
+  color:black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -113,15 +112,36 @@
   margin-bottom: 10px;
   background-color: #f5f5f5;
 }
+.welcome-container {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.welcome {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  background: linear-gradient(to right, #FFC371, #FF5F6D, #5DBB63);
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+
 
 </style>
 
 <div class="navbar">
-  <div class="logo">
-    
-    <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" alt="Logo"></a>
-    <h3>Welcome Back!!</h3>
+  <div class="welcome-container">    
+    <a href="{% url 'home' %}"><img src="{% static 'images/lit.avif' %}" alt="Logo" width="100" height="80"></a>
+    <h3 class="welcome">Welcome Back!!</h3>
   </div>
+  
   <div class="search">
     <form method="get" action="{% url 'home' %}">
       <input type="text" name="q" placeholder="Search space...">

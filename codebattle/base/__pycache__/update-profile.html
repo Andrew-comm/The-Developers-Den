@@ -1,0 +1,216 @@
+{% include 'navbar.html' %}
+
+{% block content %}
+<style>
+    /* Main styles */
+.update-account {
+  padding: 80px 0;
+}
+
+.layout__boxHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.layout__boxTitle {
+  display: flex;
+  align-items: center;
+}
+
+.logo svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+
+.logo svg {
+  fill: #333;
+}
+
+.form__group {
+  margin-bottom: 20px;
+}
+
+.form__group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+
+.form__action {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn--dark {
+  background-color: #999;
+  color: #fff;
+}
+
+.btn--main {
+  background-color: #333;
+  color: #fff;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .layout__box {
+    padding: 30px;
+  }
+}
+
+
+  /* Set a background color for the body */
+  body {
+  background: radial-gradient(ellipse at center, #003973 0%, #0077b6 50%, #00b4d8 100%);
+}
+
+
+  /* Style the update account header */
+  .card-header {
+    background-color: #4CAF50;
+    color: #fff;
+  }
+
+  /* Center the header title */
+  .card-header h3 {
+    text-align: center;
+  }
+
+  /* Style the form input fields */
+  .form-group input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 300;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  /* Style the form label */
+  .form-group label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* Style the form action buttons */
+  .form-group button,
+  .form-group a {
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Style the primary button */
+  .form-group button.btn-primary {
+    background-color: #4CAF50;
+  }
+  .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+
+  /* Style the secondary button */
+  .form-group a.btn-secondary {
+    background-color: pink;
+  }
+
+  /* Change the color of the form action buttons on hover */
+  .form-group button:hover,
+  .form-group a:hover {
+    background-color: #523a2b;
+  }
+  main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+  
+
+}
+
+</style>
+
+
+
+
+<main class="update-account layout">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center justify-content-between">
+            <a href="{% url 'home' %}" class="logo">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                  <title>arrow-left</title>
+                  <path d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"></path>
+                </svg>
+              </a>
+              
+            <h3 class="mb-0">Edit your profile</h3>
+          </div>
+        </div>
+        <div class="card-body">
+          <form class="form" action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+            </div>
+            {% endfor %}
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Update</button>
+              <a class="btn btn-secondary" href="{%url 'home' %}">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+    {% endblock %}
+ 

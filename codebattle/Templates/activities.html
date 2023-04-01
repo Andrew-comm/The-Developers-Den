@@ -1,22 +1,94 @@
-<div class="card">
-  <div class="card-header">
-    <h3 class="mb-0">Recent Activities</h3>
-  </div>
+<style>
+  .card-header h3 {
+  font-size: 1.5rem;
+}
 
-  <div class="card-body">
-    {% for message in room_messages %}
-    <div class="border rounded p-3 mb-3">
-      <div class="d-flex justify-content-between">
-        <small class="text-muted">
-          <a href="{% url 'profile' message.user.id %}" class="text-decoration-none">@{{message.user}}</a> {{message.created|timesince}} ago
-        </small>
-        {% if request.user == message.user %}
-        <a href="{% url 'delete-message' message.id %}" class="text-danger text-decoration-none">Delete message</a>
-        {% endif %}
-      </div>
-      <p class="mt-1 mb-1">{{message.body}}</p>
-      <small class="text-muted">replied to {{message.room}}</small>
+.card-body {
+  padding: 0;
+}
+
+.border {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.border p {
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.text-muted {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.small-tag {
+  display: inline-block;
+  background: radial-gradient(circle, rgba(27, 27, 27, 1) 0%, rgba(0, 0, 0, 1) 100%);  
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.small-text {
+  background: radial-gradient(circle, rgba(27, 27, 27, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+.card-body p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #333;
+}
+body {
+  
+  background: #2c3e50;
+}
+
+
+
+</style>
+
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <a href="{% url 'activity' %}">
+        <h3 class="mb-0">Recent Activities</h3>
+      </a>
     </div>
-    {% endfor %}
+    <div class="card-body">
+      {% for message in room_messages %}
+      <div class="border rounded p-3 mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <small class="text-muted">
+              <a href="{% url 'profile' message.user.id %}" class="text-decoration-none">@{{message.user}}</a> {{message.created|timesince}} ago
+            </small>
+            <small class="small-tag">replied to {{message.room}}</small>
+
+          </div>
+          {% if request.user == message.user %}
+          <a href="{% url 'delete-message' message.id %}" class="btn btn-outline-danger" style="font-size: 12px;">Delete message</a>
+          {% endif %}
+        </div>
+        <p class="mt-3">{{message.body}}</p>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </div>

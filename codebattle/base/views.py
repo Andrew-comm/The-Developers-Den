@@ -74,7 +74,7 @@ def home_page(request):
     )
     
     # Get all topics for filtering
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:5]
     
     # Get the total count of rooms that match the search query
     room_count = rooms.count()
@@ -211,3 +211,17 @@ def updateProfile(request):
 def dashboardPage(request):
     return render(request, 'dashboard.html')
 
+def topicsPage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    context = {
+        'topics':topics
+    }
+    return render(request, 'topics.html',context)
+
+def activityPage(request):
+    room_messages = Message.objects.all()
+    context = {
+        'room_messages':room_messages
+    }
+    return render(request, 'activity.html', context)

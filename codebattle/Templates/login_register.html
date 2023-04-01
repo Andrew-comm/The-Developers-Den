@@ -1,45 +1,205 @@
 {% block content %}
-{% if page == 'login' %}
-<div>    
-    <form method="POST" action="">
+<!-- 
+
+<style>
+    /* Center the form */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Style the labels */
+label {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Style the input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1.2rem;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Style the link to switch between sign in and sign up */
+a {
+  margin-top: 1rem;
+  color: #4CAF50;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+/* Style the message displayed when switching between sign in and sign up */
+p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Style the container div */
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+</style> -->
+
+<style>
+    body {
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(255,192,203,1) 35%, rgba(255,192,203,0.7) 100%);
+}
+
+
+   .card {
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  background: radial-gradient(ellipse at center, #10121a 0%, #232b3e 100%);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 30px;
+  text-align: center;
+}
+
+
+.card-header {
+  border-radius: 10px 10px 0 0;
+  padding: 1.5rem;
+}
+
+.card-body {
+  border-radius: 0 0 10px 10px;
+  padding: 1.5rem;
+}
+
+.bg-gradient-radial-purple {
+  background: radial-gradient(circle at center, #5c258d, #a77ae0);
+}
+
+.bg-gradient-radial-blue {
+  background: radial-gradient(circle at center, #085078, #85d8ce);
+}
+
+.btn-primary {
+  background-color: #5c258d;
+  border-color: #5c258d;
+  padding: 5px 15px;
+  font-size: 15px;
+}
+
+.btn-primary:hover {
+  background-color: #a77ae0;
+  border-color: #a77ae0;
+}
+.card form {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+}
+.card label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card input[type="text"],
+.card input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #444;
+}
+
+input[type="submit"] {
+  font-size: 25px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+}
+
+input[type="submit"]:hover {
+  background-color: #005ea2;
+  cursor: pointer;
+}
+
+
+.card p {
+  margin-top: 20px;
+}
+
+.card a {
+  color: #47c9e5;
+  text-decoration: none;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+
+</style>
+
+
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="card">
+    <div class="card-header bg-gradient-radial-purple">
+      <h4 class="text-center text-light">{{ page|title }}</h4>
+    </div>
+    <div class="card-body bg-gradient-radial-blue">
+      {% if page == 'login' %}
+      <form method="POST" action="">
         {% csrf_token %}
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Enter your name">
-    
-        <label>Password</label>
-        <input type="text" name="password" placeholder="Enter a Password">
-    
-        <input type="submit" value="Login">
-
-        <p>Don't have an account join us here</p>
-        <a href="{% url 'register' %}">Join us now</a>
-    
-    </form>
-</div>
-{%else%}
-
-    
-<div>
-    <form method="POST" action="">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="username" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Enter a Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <p class="mt-3 text-center">Don't have an account? <a href="{% url 'register' %}">Join us now</a></p>
+      </form>
+      {% else %}
+      <form method="POST" action="">
         {% csrf_token %}
-        {{form.as_p}}
-
-
-        
-            
-        
-        <input type="submit" value="Register">
-        <p>Already have an account login here</p>
-        <a href="{% url 'login' %}">Login</a>
-        
-        
-    </form>
-
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Register</button>
+        <p class="mt-3 text-center">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+      </form>
+      {% endif %}
+    </div>
+  </div>
 </div>
-{% endif %}
-
-
-
-
 
 {% endblock %}
