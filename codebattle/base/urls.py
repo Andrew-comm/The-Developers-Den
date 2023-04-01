@@ -22,7 +22,8 @@ urlpatterns = [
    path('update-profile/', views.updateProfile, name="update-profile"),
    path('dashboard/', views.dashboardPage, name="dashboard"),
    path('topics/', views.topicsPage, name="topics"),
-    path('activity/', views.activityPage, name="activity"),
+   path('activity/', views.activityPage, name="activity"),
+   path('contact/', views.contactPage, name="contact"),
 
 
 

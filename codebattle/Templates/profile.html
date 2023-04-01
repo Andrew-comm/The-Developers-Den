@@ -6,10 +6,134 @@
 {% bootstrap_css %}
 
 {% block content %}
+<style>
+     .img img{
+        width: 100px;
+        height: 80px;
+        margin-left: 40px;
+    }
+    .card {
+    margin-top: 40px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    color: #333;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .img {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .img img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-text {
+    font-size: 16px;
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 0;
+    margin-left: 5px;
+  }
+  
+  @media (max-width: 767px) {
+    .card-title {
+      font-size: 24px;
+    }
+
+    .img img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+span.ml-2 {
+  margin-right: 25px;
+  font-size: 1.5rem;
+  color: #FF69B4;
+}
+.nav-link{
+  font-size: 20px;
+  
+}
+span.ml-2:hover{
+  color: #000;
+}
+.text-center {
+  margin-top: 20px;
+  
+}
+
+.edit {
+  padding: 0px 70px;
+  background-color: #007bff;
+  border-color: #007bff;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+.btn-primary:hover {
+  background-color:#FF69B4;
+  border-color: #0062cc;
+
+}
+
+.text-primary {
+  color: #007bff;
+  margin-top: 20px;
+  font-weight: bold;
+  
+  
+}
+
+</style>
 
 <div class="row">
     <div class="col">
-        {% include 'navbar.html' %} 
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="container">
+            <a class="navbar-brand" href="#">
+              <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" width="70" height="60" alt="Logo"></a>
+              <span class="ml-2">The Developer's Den</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url '{% url 'contact' %}' %}">Contact</a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
     </div>
 </div>
 
@@ -19,8 +143,27 @@
       {% include 'activities.html' %}
     </div>
     <div class="col-md-4">
-         <h3>User Profile</h3>
-    </div>
+        <div class="text-center">
+          <h3>User Profile</h3>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="text-center">
+              <a class="img"><img class="img-fluid rounded-circle" src="{% static 'images/profile.avif'%} "></a>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                  <a href="{% url 'update-profile' %}" class="btn btn-primary mb-2 edit">Edit Profile</a>
+                  <h4 class="text-primary">About</h4>
+                </div>
+            </div>
+              
+            <p class="card-text">As a web developer, I keep up-to-date with the latest trends and technologies in the field, attending conferences and participating in online communities to continually improve my skills and knowledge. Overall, my goal as a web developer is to create engaging, interactive, and reliable digital experiences for users.</p>
+          </div>
+        </div>
+      </div>
+      
+      
     <div class="col-md-5">
         {% include 'topics.html' %}
     </div>

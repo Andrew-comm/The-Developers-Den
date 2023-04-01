@@ -71,13 +71,15 @@ def home_page(request):
         Q(topic__name__icontains=q) |
         Q(name__icontains=q) |
         Q(description__icontains=q)
-    )
+    )[0:6]
     
     # Get all topics for filtering
     topics = Topic.objects.all()[0:5]
+    spaces = Room.objects.all()[0:6]
     
     # Get the total count of rooms that match the search query
     room_count = rooms.count()
+    
     
     # Get all messages of rooms that match the search query
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
@@ -87,6 +89,7 @@ def home_page(request):
         'rooms': rooms,
         'topics': topics,
         'room_count': room_count,
+        'spaces' : spaces,
         'room_messages': room_messages,
         'q': q,
     }
@@ -225,3 +228,6 @@ def activityPage(request):
         'room_messages':room_messages
     }
     return render(request, 'activity.html', context)
+
+def contactPage(request):
+    return render(request, 'contact.html')

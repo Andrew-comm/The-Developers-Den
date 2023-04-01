@@ -1,0 +1,229 @@
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://kit.fontawesome.com/79a1a846e3.js" crossorigin="anonymous"></script>
+
+<style>
+
+
+
+
+form {
+  margin-top: 20px;
+}
+
+.form-control {
+  height: 50px;
+  font-size: 16px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-group label {
+  font-size: 18px;
+  color: palevioletred;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+textarea.form-control {
+  height: 150px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
+footer a {
+  color: #fff;
+}
+.contact-col-1 {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 40px;
+  margin-bottom: 10px;
+}
+.card-title{
+    font-size: 24px;
+    font-weight: 500;
+    color: pink;
+}
+
+
+.contact-col-1 h1.sub-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.contact-col-1 p {
+  margin-bottom: 10px;
+}
+
+.contact-col-1 p i {
+  margin-right: 10px;
+  color: #007bff;
+  font-size: 18px;
+}
+.social-icons a {
+  margin-right: 10px;
+  color: #007bff;
+  font-size: 24px;
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.social-icons a h5{
+  margin-left: 10px;
+}
+
+.social-icons a:hover {
+  color: pink;
+}
+
+
+.btn.btn2 {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+.btn.btn2:hover {
+  background-color: #0056b3;
+  border-color: #0051a1;
+}
+body {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.4) 100%);
+}
+.info{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: palegreen;
+  }
+  
+ .info h5{
+    margin-left: 10px;
+  }
+  span.ml-2 {
+  margin-right: 25px;
+  font-size: 24px;
+  color: #FF69B4;
+}
+.nav-link{
+  font-size: 24px;
+  color: #ff523b;
+}
+span.ml-2:hover{
+  color: #000;
+}
+.navbar-nav{
+  display: inline-block;
+  margin-left: 550px;
+}
+.nav-item{
+  margin-left: 30px;
+}
+
+</style>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <a href="{% url 'home' %}"><img src="{% static 'images/logo1.png' %}" width="70" height="60" alt="Logo"></a>
+        <span class="ml-2">The Developer's Den</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Contact us</h5>
+            <a class="info"><p><i class="fa-solid fa-square-phone"></i><h5>+25412345678</h5></p></a>
+            <a class="info"><p><i class="fa-sharp fa-solid fa-envelope"></i><h5>developersforum@gmail.com</h5></p></a>
+
+            <div class="social-icons">         
+              <a href="#"><i class="fa-brands fa-square-twitter"></i><h5>Twitter</h5></a>
+              <a href="#"><i class="fa-brands fa-linkedin"></i><h5>Linkedin</h5></a>           
+              <a href="#"><i class="fa-brands fa-github"></i><h5>Github</h5></a>
+              <a href="#"><i class="fa-brands fa-instagram"></i><h5>Instagram</h5></a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Send us a message</h5>
+            <form name="'submit-to-google-sheet'">
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="Email" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea class="form-control" id="message" name="Message" rows="6" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <span id="msg"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxNu8m1DnEkcu41ZcD8X86PGu5t7L_Llv8-Maep1BFxOsxnrsZsjskUeEN29SsDXgxD/exec'
+  const form = document.forms['submit-to-google-sheet']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
+  
+  
+  
