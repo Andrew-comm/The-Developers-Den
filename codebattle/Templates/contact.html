@@ -1,14 +1,12 @@
 {% load static %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="https://kit.fontawesome.com/79a1a846e3.js" crossorigin="anonymous"></script>
 
 <style>
-
-
-
-
 form {
   margin-top: 20px;
 }
@@ -86,6 +84,8 @@ footer a {
 
 .social-icons a h5{
   margin-left: 10px;
+  font-size: 18px;
+  color: greenyellow;
 }
 
 .social-icons a:hover {
@@ -135,6 +135,11 @@ span.ml-2:hover{
 .nav-item{
   margin-left: 30px;
 }
+#success-message{
+  color: green;
+  font-size: 20px;
+  font-weight: 600;
+}
 
 </style>
 
@@ -160,7 +165,7 @@ span.ml-2:hover{
             <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="">Contact</a>
           </li>
           
         </ul>
@@ -187,11 +192,13 @@ span.ml-2:hover{
           </div>
         </div>
       </div>
+      <div id="success-message" class="alert" role="alert">              
+            </div>
       <div class="col-md-6 mb-4">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">Send us a message</h5>
-            <form name="'submit-to-google-sheet'">
+            <form name="submit-to-google-sheet">
               <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" name="Name" required>
@@ -206,6 +213,8 @@ span.ml-2:hover{
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            
+
             <span id="msg"></span>
           </div>
         </div>
@@ -213,17 +222,30 @@ span.ml-2:hover{
     </div>
   </div>
 
- <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxNu8m1DnEkcu41ZcD8X86PGu5t7L_Llv8-Maep1BFxOsxnrsZsjskUeEN29SsDXgxD/exec'
-  const form = document.forms['submit-to-google-sheet']
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxNu8m1DnEkcu41ZcD8X86PGu5t7L_Llv8-Maep1BFxOsxnrsZsjskUeEN29SsDXgxD/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+      msg.innerHTML = "Message sent successfully"
+      document.getElementById('success-message').innerHTML = "Message sent successfully"
+      document.getElementById('success-message').style.display = "block"
 
-  form.addEventListener('submit', e => {
-    e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => console.log('Success!', response))
-      .catch(error => console.error('Error!', error.message))
-  })
-</script>
+      setTimeout(function(){
+        msg.innerHTML = ''
+        document.getElementById('success-message').style.display = "none"
+      }, 3000)
+
+      form.reset()
+    })
+    .catch(error => console.error('Error!', error.message))
+})
+
+
+  </script>
   
   
   

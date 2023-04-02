@@ -96,7 +96,7 @@ def home_page(request):
 
     # Render the home.html template with the context data
     return render(request, 'home.html', context)
-
+@login_required(login_url='login')
 def room(request,pk):
     room = Room.objects.get(id=pk)
     room_messages = room.message_set.all()
@@ -117,6 +117,7 @@ def room(request,pk):
     context={'room':room,'room_messages':room_messages, 'participants':participants}
     return render(request,'room.html',context)
 
+@login_required(login_url='login')
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
@@ -211,9 +212,11 @@ def updateProfile(request):
             return redirect('profile',user.id)
     return render(request, 'update-profile.html',context)
 
+@login_required(login_url='login')
 def dashboardPage(request):
     return render(request, 'dashboard.html')
 
+@login_required(login_url='login')
 def topicsPage(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     topics = Topic.objects.filter(name__icontains=q)
@@ -222,12 +225,13 @@ def topicsPage(request):
     }
     return render(request, 'topics.html',context)
 
+@login_required(login_url='login')
 def activityPage(request):
     room_messages = Message.objects.all()
     context = {
         'room_messages':room_messages
     }
     return render(request, 'activity.html', context)
-
+@login_required(login_url='login')
 def contactPage(request):
     return render(request, 'contact.html')
