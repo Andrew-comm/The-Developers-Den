@@ -12,13 +12,20 @@ from .models import Room,Topic,Message
 from .forms import RoomForm, UserForm
 
 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+
 def login_page(request):
     page = 'login'
+    
+    # Check if the user is already authenticated and redirect to the home page
     if request.user.is_authenticated:
         return redirect('home')
     
     if request.method == 'POST':
-        username  = request.POST.get('username')
+        username = request.POST.get('username')
         password = request.POST.get('password')
         
         # Check if a user exists
@@ -37,7 +44,7 @@ def login_page(request):
         else:
             messages.error(request, 'Username or password is invalid')
 
-    context = {'page':page}
+    context = {'page': page}
     return render(request, 'login_register.html', context)
 
 
@@ -52,7 +59,7 @@ def registerUser(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.username = user.lower()
+            # user.username = user.lower()
             user.save()
             login(request,user)
             return redirect('home')
